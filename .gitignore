@@ -2,6 +2,7 @@
 *.exe
 *.stackdump
 /.vscode
+/output
 
 # Prerequisites
 *.d
