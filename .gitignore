@@ -1,3 +1,8 @@
+*.bat
+*.exe
+*.stackdump
+/.vscode
+
 # Prerequisites
 *.d
 
