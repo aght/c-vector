@@ -21,6 +21,8 @@ int main() {
 
 	vector_remove(&v, 2);
 
+	vector_shrink(&v);
+
 	for (int i = 0; i < v.size; i++) {
 		printf(i != v.size - 1 ? "%c, " : "%c", vector_get(&v, i));
 	}
