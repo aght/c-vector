@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct {
+typedef struct
+{
     size_t size;
     size_t capacity;
     void** data;
@@ -32,7 +33,9 @@ bool vector_resize(vector*, size_t);
 
 bool vector_contains(vector*, int (*)(const void*, const void*), void*);
 void vector_reverse(vector*);
+
 void vector_add_all(vector*, vector*);
+void vector_sub_list(vector*, size_t, size_t);
 
 void vector_clear(vector*);
 bool vector_is_empty(vector*);

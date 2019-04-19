@@ -10,13 +10,15 @@ void swap(void** a, void** b);
 
 void insertion_sort(vector* v, int (*cmp)(const void*, const void*));
 
-void vector_init(vector* v) {
+void vector_init(vector* v)
+{
     v->size = 0;
     v->capacity = 0;
     v->data = NULL;
 }
 
-void vector_destroy(vector* v) {
+void vector_destroy(vector* v)
+{
     free(v->data);
 
     v->data = NULL;
@@ -24,21 +26,26 @@ void vector_destroy(vector* v) {
     v->capacity = 0;
 }
 
-bool vector_add(vector* v, void* e) {
-    if (v->size == 0) {
+bool vector_add(vector* v, void* e)
+{
+    if (v->size == 0)
+    {
         v->data = malloc(ALLOC_BLOCK_SIZE * sizeof(void*));
 
-        if (!v->data) {
+        if (!v->data)
+        {
             return false;
         }
 
         v->capacity = ALLOC_BLOCK_SIZE;
     }
 
-    if (v->size == v->capacity) {
+    if (v->size == v->capacity)
+    {
         void** tmp = realloc(v->data, (v->size + ALLOC_BLOCK_SIZE) * sizeof(void*));
 
-        if (!tmp) {
+        if (!tmp)
+        {
             return false;
         }
 
@@ -52,29 +59,35 @@ bool vector_add(vector* v, void* e) {
     return true;
 }
 
-bool vector_remove(vector* v, size_t index) {
-    if (!index_in_range(v, index)) {
+bool vector_remove(vector* v, size_t index)
+{
+    if (!index_in_range(v, index))
+    {
         return false;
     }
 
-    memcpy(&v->data[index], &v->data[index + 1], (v->capacity - index) * sizeof(void*));
+    memcpy(&v->data[index], &v->data[index + 1],
+        (v->capacity - index) * sizeof(void*));
 
     v->size--;
 
     return true;
 }
 
-void* vector_get(vector * v, size_t index) {
-    if (!index_in_range(v, index)) {
+void* vector_get(vector * v, size_t index)
+{
+    if (!index_in_range(v, index))
+    {
         return NULL;
     }
 
     return v->data[index];
 }
 
-
-bool vector_set(vector * v, size_t index, void* e) {
-    if (!index_in_range(v, index)) {
+bool vector_set(vector * v, size_t index, void* e)
+{
+    if (!index_in_range(v, index))
+    {
         return false;
     }
 
@@ -83,9 +96,12 @@ bool vector_set(vector * v, size_t index, void* e) {
     return true;
 }
 
-int vector_find(vector* v, void* e) {
-    for (int i = 0; i < v->size; i++) {
-        if (v->data[i] == e) {
+int vector_find(vector * v, void* e)
+{
+    for (int i = 0; i < v->size; i++)
+    {
+        if (v->data[i] == e)
+        {
             return i;
         }
     }
@@ -93,9 +109,12 @@ int vector_find(vector* v, void* e) {
     return -1;
 }
 
-int vector_rfind(vector* v, void* e) {
-    for (int i = v->size - 1; i >= 0; i--) {
-        if (v->data[i] == e) {
+int vector_rfind(vector * v, void* e)
+{
+    for (int i = v->size - 1; i >= 0; i--)
+    {
+        if (v->data[i] == e)
+        {
             return i;
         }
     }
@@ -103,9 +122,12 @@ int vector_rfind(vector* v, void* e) {
     return -1;
 }
 
-int vector_findc(vector* v, void* e, int (*cmp)(const void*, const void*)) {
-    for (int i = 0; i < v->size; i++) {
-        if (cmp(&v->data[i], &e) == 0) {
+int vector_findc(vector * v, void* e, int (*cmp)(const void*, const void*))
+{
+    for (int i = 0; i < v->size; i++)
+    {
+        if (cmp(&v->data[i], &e) == 0)
+        {
             return i;
         }
     }
@@ -113,9 +135,12 @@ int vector_findc(vector* v, void* e, int (*cmp)(const void*, const void*)) {
     return -1;
 }
 
-int vector_rfindc(vector* v, void* e, int (*cmp)(const void*, const void*)) {
-    for (int i = v->size - 1; i >= 0; i--) {
-        if (cmp(&v->data[i], &e) == 0) {
+int vector_rfindc(vector * v, void* e, int (*cmp)(const void*, const void*))
+{
+    for (int i = v->size - 1; i >= 0; i--)
+    {
+        if (cmp(&v->data[i], &e) == 0)
+        {
             return i;
         }
     }
@@ -123,12 +148,15 @@ int vector_rfindc(vector* v, void* e, int (*cmp)(const void*, const void*)) {
     return -1;
 }
 
-bool vector_shrink(vector * v) {
+bool vector_shrink(vector * v)
+{
     return vector_resize(v, v->size);
 }
 
-bool vector_reserve(vector * v, size_t n) {
-    if (n < v->capacity) {
+bool vector_reserve(vector * v, size_t n)
+{
+    if (n < v->capacity)
+    {
         return false;
     }
 
@@ -137,26 +165,44 @@ bool vector_reserve(vector * v, size_t n) {
     return result;
 }
 
-bool vector_resize(vector* v, size_t n) {
-    void** tmp = realloc(v->data, n * sizeof(void*));
+bool vector_resize(vector * v, size_t n)
+{
+    if (v->size == 0)
+    {
+        v->data = malloc(n * sizeof(void*));
+        if (!v->data)
+        {
+            return false;
+        }
+    }
+    else
+    {
+        void** tmp = realloc(v->data, n * sizeof(void*));
 
-    if (!tmp) {
-        return false;
+        if (!tmp)
+        {
+            return false;
+        }
+
+        v->data = tmp;
     }
 
-    v->data = tmp;
     v->capacity = n;
 
-    if (n < v->size) {
+    if (n < v->size)
+    {
         v->size = n;
     }
 
     return true;
 }
 
-bool vector_contains(vector * v, int (*cmp)(const void*, const void*), void* e) {
-    for (size_t i = 0; i < v->size; i++) {
-        if (cmp(&e, &v->data[i]) == 0) {
+bool vector_contains(vector * v, int (*cmp)(const void*, const void*), void* e)
+{
+    for (size_t i = 0; i < v->size; i++)
+    {
+        if (cmp(&e, &v->data[i]) == 0)
+        {
             return true;
         }
     }
@@ -164,43 +210,65 @@ bool vector_contains(vector * v, int (*cmp)(const void*, const void*), void* e) 
     return false;
 }
 
-void vector_reverse(vector * v) {
-    for (int i = 0, j = v->size - 1; i < v->size / 2; i++, j--) {
+void vector_reverse(vector * v)
+{
+    for (int i = 0, j = v->size - 1; i < v->size / 2; i++, j--)
+    {
         swap(&v->data[i], &v->data[j]);
     }
 }
 
-void vector_add_all(vector * src, vector * dest) {
-    vector_reserve(src, src->size + dest->size);
-
-    memcpy(&src->data[src->size], dest->data, dest->size * sizeof(void*));
-
-    src->size += dest->size;
+void vector_add_all(vector * dest, vector * src)
+{
+    for (int i = 0; i < src->size; i++)
+    {
+        vector_add(dest, src->data[i]);
+    }
 }
 
-void vector_clear(vector * v) {
+void vector_sub_list(vector * dest, vector * src, size_t begin, size_t end)
+{
+    if (begin < 0 || end > src->size || end - begin == 0 || begin > end)
+    {
+        return;
+    }
+
+    for (int i = begin; i < end; i++)
+    {
+        vector_add(dest, src->data[i]);
+    }
+}
+
+void vector_clear(vector * v)
+{
     vector_destroy(v);
     vector_init(v);
 }
 
-bool vector_is_empty(vector * v) {
+bool vector_is_empty(vector * v)
+{
     return v->size == 0;
 }
 
-void* vector_bsearch(vector * v, int (*cmp)(const void*, const void*), void* e) {
+void* vector_bsearch(vector * v, int (*cmp)(const void*, const void*), void* e)
+{
     int l = 0;
     int h = v->size - 1;
 
-    while (l <= h) {
+    while (l <= h)
+    {
         int mid = l + (h - l) / 2;
 
-        if (cmp(&e, &v->data[mid]) == 0) {
+        if (cmp(&e, &v->data[mid]) == 0)
+        {
             return &v->data[mid];
         }
-        else if (cmp(&e, &v->data[mid]) < 0) {
+        else if (cmp(&e, &v->data[mid]) < 0)
+        {
             h = mid - 1;
         }
-        else {
+        else
+        {
             l = mid + 1;
         }
     }
@@ -208,15 +276,18 @@ void* vector_bsearch(vector * v, int (*cmp)(const void*, const void*), void* e) 
     return NULL;
 }
 
-void insertion_sort(vector * v, int (*cmp)(const void*, const void*)) {
+void insertion_sort(vector * v, int (*cmp)(const void*, const void*))
+{
     long long i, j;
     void* p;
 
-    for (i = 1; i < v->size; i++) {
+    for (i = 1; i < v->size; i++)
+    {
         p = v->data[i];
         j = i - 1;
 
-        while (j >= 0 && cmp(&p, &v->data[j]) < 0) {
+        while (j >= 0 && cmp(&p, &v->data[j]) < 0)
+        {
             v->data[j + 1] = v->data[j];
             j = j - 1;
         }
@@ -225,15 +296,18 @@ void insertion_sort(vector * v, int (*cmp)(const void*, const void*)) {
     }
 }
 
-void vector_sort(vector * v, int (*cmp)(const void*, const void*)) {
+void vector_sort(vector * v, int (*cmp)(const void*, const void*))
+{
     qsort(v->data, v->size, sizeof(void*), cmp);
 }
 
-bool index_in_range(vector * v, size_t index) {
+bool index_in_range(vector * v, size_t index)
+{
     return !(index >= v->size || index < 0);
 }
 
-void swap(void** a, void** b) {
+void swap(void** a, void** b)
+{
     void* tmp = *b;
     *b = *a;
     *a = tmp;
