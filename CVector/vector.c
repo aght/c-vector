@@ -113,6 +113,15 @@ void vector_reverse(vector * v) {
 	}
 }
 
+void vector_clear(vector * v) {
+	vector_destroy(v);
+	vector_init(v);
+}
+
+bool vector_is_empty(vector * v) {
+	return v->size == 0;
+}
+
 void* vector_bsearch(vector * v, int (*cmp)(const void*, const void*), void* e) {
 	int l = 0;
 	int h = v->size - 1;

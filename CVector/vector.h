@@ -25,6 +25,9 @@ bool vector_shrink(vector*);
 
 bool vector_contains(vector*, int (*)(const void*, const void*), void*);
 void vector_reverse(vector*);
+void vector_clear(vector*);
+bool vector_is_empty(vector*);
+
 void* vector_bsearch(vector*, int (*)(const void*, const void*), void*);
 void vector_sort(vector*, int (*)(const void*, const void*));
 
