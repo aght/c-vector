@@ -124,23 +124,20 @@ int vector_rfindc(vector* v, void* e, int (*cmp)(const void*, const void*)) {
 }
 
 bool vector_shrink(vector * v) {
-    void** tmp = realloc(v->data, v->size * sizeof(void*));
-
-    if (!tmp) {
-        return false;
-    }
-
-    v->data = tmp;
-    v->capacity = v->size;
-
-    return true;
+    return vector_resize(v, v->size);
 }
 
 bool vector_reserve(vector * v, size_t n) {
-    if (n <= v->capacity) {
+    if (n < v->capacity) {
         return false;
     }
 
+    bool result = vector_resize(v, n);
+
+    return result;
+}
+
+bool vector_resize(vector* v, size_t n) {
     void** tmp = realloc(v->data, n * sizeof(void*));
 
     if (!tmp) {
@@ -149,6 +146,10 @@ bool vector_reserve(vector * v, size_t n) {
 
     v->data = tmp;
     v->capacity = n;
+
+    if (n < v->size) {
+        v->size = n;
+    }
 
     return true;
 }

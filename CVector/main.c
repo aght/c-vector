@@ -37,17 +37,13 @@ int main() {
 	print(&v1);
     print(&v2);
 
-    vector_add_all(&v1, &v2);
+    vector_resize(&v1, 3);
+    vector_resize(&v2, 2);
 
-    vector_shrink(&v1);
+    vector_add_all(&v1, &v2);
 
     print(&v1);
     print(&v2);
-
-    printf("index of L: %d\n", vector_rfind(&v1, 'L'));
-    printf("index of K: %d\n", vector_find(&v1, 'K'));
-    printf("cmp index of L: %d\n", vector_rfindc(&v1, 'L', cmp));
-    printf("cmp index of K: %d\n", vector_findc(&v1, 'K', cmp));
 
 	vector_destroy(&v1);
     vector_destroy(&v2);

@@ -27,11 +27,12 @@ int vector_findc(vector*, void*, int (*)(const void*, const void*));
 int vector_rfindc(vector*, void*, int (*)(const void*, const void*));
 
 bool vector_shrink(vector*);
-bool vector_reserve(vector* v, size_t size);
+bool vector_reserve(vector*, size_t);
+bool vector_resize(vector*, size_t);
 
 bool vector_contains(vector*, int (*)(const void*, const void*), void*);
 void vector_reverse(vector*);
-void vector_add_all(vector* src, vector* dest);
+void vector_add_all(vector*, vector*);
 
 void vector_clear(vector*);
 bool vector_is_empty(vector*);
