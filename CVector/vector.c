@@ -6,6 +6,7 @@
 #define ALLOC_BLOCK_SIZE 10
 
 bool index_in_range(vector*, size_t);
+void swap(void** a, void** b);
 
 void vector_init(vector* v) {
 	v->size = 0;
@@ -106,6 +107,12 @@ bool vector_contains(vector * v, int (*cmp)(const void*, const void*), void* e) 
 	return false;
 }
 
+void vector_reverse(vector * v) {
+	for (int i = 0, j = v->size - 1; i < v->size / 2; i++, j--) {
+		swap(&v->data[i], &v->data[j]);
+	}
+}
+
 void* vector_bsearch(vector * v, int (*cmp)(const void*, const void*), void* e) {
 	int l = 0;
 	int h = v->size - 1;
@@ -144,17 +151,18 @@ void insertion_sort(vector * v, int (*cmp)(const void*, const void*)) {
 	}
 }
 
-void quick_sort(vector * v, int (*cmp)(const void*, const void*)) {
-
-}
-
 void vector_sort(vector * v, int (*cmp)(const void*, const void*)) {
-	// qsort(v->data, v->size, sizeof(void *), cmp);
-	insertion_sort(v, cmp);
+	qsort(v->data, v->size, sizeof(void*), cmp);
 }
 
 bool index_in_range(vector * v, size_t index) {
-	return (index >= v->size || index < 0) ? false : true;
+	return !(index >= v->size || index < 0);
+}
+
+void swap(void** a, void** b) {
+	void* tmp = *b;
+	*b = *a;
+	*a = tmp;
 }
 
 #endif

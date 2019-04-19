@@ -24,6 +24,7 @@ bool vector_set(vector*, size_t, void*);
 bool vector_shrink(vector*);
 
 bool vector_contains(vector*, int (*)(const void*, const void*), void*);
+void vector_reverse(vector*);
 void* vector_bsearch(vector*, int (*)(const void*, const void*), void*);
 void vector_sort(vector*, int (*)(const void*, const void*));
 
