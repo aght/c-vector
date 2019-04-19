@@ -22,9 +22,12 @@ void* vector_get(vector*, size_t);
 bool vector_set(vector*, size_t, void*);
 
 bool vector_shrink(vector*);
+bool vector_reserve(vector* v, size_t size);
 
 bool vector_contains(vector*, int (*)(const void*, const void*), void*);
 void vector_reverse(vector*);
+void vector_add_all(vector* src, vector* dest);
+
 void vector_clear(vector*);
 bool vector_is_empty(vector*);
 

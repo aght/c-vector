@@ -12,32 +12,38 @@ void print(vector* v) {
 }
 
 int main() {
-	vector v;
+	vector v1;
+    vector v2;
 
-	vector_init(&v);
+	vector_init(&v1);
+    vector_init(&v2);
 
-	vector_add(&v, 'P');
-	vector_add(&v, 'K');
-	vector_add(&v, 'A');
-	vector_add(&v, 'D');
-	vector_add(&v, 'E');
-	vector_add(&v, 'J');
-	vector_add(&v, 'M');
-	vector_add(&v, 'S');
+	vector_add(&v1, 'P');
+	vector_add(&v1, 'K');
+	vector_add(&v1, 'A');
+	vector_add(&v1, 'D');
+	vector_add(&v1, 'E');
+	vector_add(&v1, 'J');
+	vector_add(&v1, 'M');
+	vector_add(&v1, 'S');
 
-	vector_sort(&v, cmp);
+    vector_add(&v2, 'L');
+    vector_add(&v2, '9');
+    vector_add(&v2, 'R');
 
-	vector_remove(&v, 2);
+    vector_shrink(&v1);
+    vector_shrink(&v2);
 
-	vector_shrink(&v);
+	print(&v1);
+    print(&v2);
 
-	print(&v);
+    vector_add_all(&v1, &v2);
 
-	vector_reverse(&v);
+    print(&v1);
+    print(&v2);
 
-	print(&v);
-
-	vector_destroy(&v);
+	vector_destroy(&v1);
+    vector_destroy(&v2);
 
 	return 0;
 }
