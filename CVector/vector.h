@@ -7,9 +7,9 @@
 #include <string.h>
 
 typedef struct {
-	size_t size;
-	size_t capacity;
-	void** data;
+    size_t size;
+    size_t capacity;
+    void** data;
 } vector;
 
 void vector_init(vector*);
@@ -20,6 +20,11 @@ bool vector_remove(vector*, size_t);
 
 void* vector_get(vector*, size_t);
 bool vector_set(vector*, size_t, void*);
+
+int vector_find(vector*, void*);
+int vector_rfind(vector*, void*);
+int vector_findc(vector*, void*, int (*)(const void*, const void*));
+int vector_rfindc(vector*, void*, int (*)(const void*, const void*));
 
 bool vector_shrink(vector*);
 bool vector_reserve(vector* v, size_t size);

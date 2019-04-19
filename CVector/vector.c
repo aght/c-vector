@@ -83,6 +83,46 @@ bool vector_set(vector * v, size_t index, void* e) {
     return true;
 }
 
+int vector_find(vector* v, void* e) {
+    for (int i = 0; i < v->size; i++) {
+        if (v->data[i] == e) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int vector_rfind(vector* v, void* e) {
+    for (int i = v->size - 1; i >= 0; i--) {
+        if (v->data[i] == e) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int vector_findc(vector* v, void* e, int (*cmp)(const void*, const void*)) {
+    for (int i = 0; i < v->size; i++) {
+        if (cmp(&v->data[i], &e) == 0) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int vector_rfindc(vector* v, void* e, int (*cmp)(const void*, const void*)) {
+    for (int i = v->size - 1; i >= 0; i--) {
+        if (cmp(&v->data[i], &e) == 0) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 bool vector_shrink(vector * v) {
     void** tmp = realloc(v->data, v->size * sizeof(void*));
 
