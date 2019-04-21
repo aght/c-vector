@@ -26,6 +26,16 @@ void vector_destroy(vector* v)
     v->capacity = 0;
 }
 
+void vector_destroyf(vector* v)
+{
+    for (int i = 0; i < v->size; i++)
+    {
+        free(v->data[i]);
+    }
+
+    vector_destroy(v);
+}
+
 bool vector_add(vector* v, void* e)
 {
     if (v->size == 0)

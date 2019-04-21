@@ -15,6 +15,7 @@ typedef struct
 
 void vector_init(vector*);
 void vector_destroy(vector*);
+void vector_destroyf(vector*);
 
 bool vector_add(vector*, void*);
 bool vector_remove(vector*, size_t);
